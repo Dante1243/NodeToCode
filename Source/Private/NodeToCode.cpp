@@ -139,9 +139,8 @@ void FNodeToCodeModule::ConfigureHttpTimeouts()
     TimeoutConfig->LoadConfig();
     
     // If all settings are already sufficient, we're done
-    if (TimeoutConfig->HttpTimeout >= 3600.0f && 
-        TimeoutConfig->HttpConnectionTimeout >= 300.0f && 
-        TimeoutConfig->HttpActivityTimeout >= 3600.0f)
+    if ((TimeoutConfig->HttpActivityTimeout >= 3600.0f || TimeoutConfig->HttpTimeout >= 3600.0f) && 
+        TimeoutConfig->HttpConnectionTimeout >= 300.0f)
     {
         FN2CLogger::Get().Log(TEXT("HTTP timeout settings already configured correctly"), EN2CLogSeverity::Info);
         return;
@@ -171,7 +170,7 @@ void FNodeToCodeModule::ConfigureHttpTimeouts()
 #endif
 
     // Show notification that restart is required for full effect
-    ShowRestartRequiredNotification();
+    //ShowRestartRequiredNotification();
 }
 
 void FNodeToCodeModule::ShowRestartRequiredNotification()
